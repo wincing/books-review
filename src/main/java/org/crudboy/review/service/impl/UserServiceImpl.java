@@ -87,4 +87,8 @@ public class UserServiceImpl implements UserService {
         }
         return userReadState;
     }
+
+    public User selectById(Long id) {
+        return userMapper.selectById(id);
+    }
 }

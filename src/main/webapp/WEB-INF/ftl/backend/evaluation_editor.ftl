@@ -38,13 +38,12 @@
                     return d.book.bookName;
             }}
             , {type: "space" , title: '用户名', width: '100', templet: function (d) {
-                    console.info(d);
-                    return d.member.username;
+                    return d.user.username;
             }}
             , {type: 'space', title: '操作', width: '100' , templet : function(d){
                     if(d.state=="enable") {
                         return "<button class='layui-btn layui-btn-sm '  data-id='" + d.evaluationId + "' onclick='disableEvaluation(this)'>禁用</button>";
-                    }else if(d.state =="disable"){
+                    }else if(d.state =="disabled"){
                         return "已禁用";
                     }
                 }

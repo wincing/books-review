@@ -39,4 +39,11 @@ public interface UserService {
      * @return
      */
     UserReadState updateUserReadState(Long bookId, Long userId, Integer readState);
+
+    /**
+     * 查询对应id的用户
+     * @param id
+     * @return
+     */
+    User selectById(Long id);
 }

@@ -1,6 +1,8 @@
 package org.crudboy.review.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.crudboy.review.Entity.Book;
 import org.crudboy.review.Entity.Evaluation;
 import org.crudboy.review.Entity.User;
@@ -63,6 +65,29 @@ public class EvaluationServiceImpl implements EvaluationService {
     public Evaluation enjoy(Long evaluationId) {
         Evaluation evaluation = evaluationMapper.selectById(evaluationId);
         evaluation.setEnjoy(evaluation.getEnjoy() + 1);
+        evaluationMapper.updateById(evaluation);
+        return evaluation;
+    }
+
+    public IPage<Evaluation> paging(Integer current, Integer rows) {
+        if (current == null) {
+            current = 1;
+        }
+        if (rows == null) {
+            rows = 10;
+        }
+
+        Page<Evaluation> page = new Page<Evaluation>(current, rows);
+        QueryWrapper<Evaluation> queryWrapper = new QueryWrapper<Evaluation>();
+        queryWrapper.orderByDesc("create_time");
+
+        return evaluationMapper.selectPage(page, queryWrapper);
+    }
+
+    public Evaluation disable(Long evaluationId, String reason) {
+        Evaluation evaluation=  evaluationMapper.selectById(evaluationId);
+        evaluation.setDisableReason(reason);
+        evaluation.setState("disabled");
         evaluationMapper.updateById(evaluation);
         return evaluation;
     }
